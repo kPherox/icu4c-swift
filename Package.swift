@@ -1,3 +1,5 @@
+// swift-tools-version:5.1
+
 // Copyright 2017 Tony Allevato.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +18,17 @@ import PackageDescription
 
 let package = Package(
   name: "icu4c-swift",
-  pkgConfig: "icu-uc",
-  providers: [
-    .Brew("icu4c"),
-    .Apt("libicu-dev"),
+  products: [
+    .library(name: "ICU4C", targets: ["ICU4C"]),
+  ],
+  targets: [
+    .systemLibrary(
+      name: "ICU4C",
+      pkgConfig: "icu-uc",
+      providers: [
+        .brew(["icu4c"]),
+        .apt(["libicu-dev"]),
+      ]
+    ),
   ]
 )
